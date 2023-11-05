@@ -43,8 +43,8 @@ function updateLogoVelocity()
 
     let logo = document.getElementById('dvd-logo');
 
-    let sizeX = window.innerWidth - (window.innerWidth * 0.1);
-    let sizeY = window.innerHeight - (window.innerHeight * 0.12);
+    let sizeX = window.innerWidth - 100;
+    let sizeY = window.innerHeight - 50;
 
     // if the logo is at the top or bottom reverse the yvel
     if (currentY >= sizeY || currentY <= 0) {
