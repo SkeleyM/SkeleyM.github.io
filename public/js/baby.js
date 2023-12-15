@@ -143,12 +143,13 @@ class Baby
 
 // wait for window to load before executing important stuf
 document.addEventListener('DOMContentLoaded', function () {
-    const baby = new Baby();
-
+    
 
 
     let execute = document.getElementById('run');
     execute.onclick = function() {
+        const baby = new Baby();
+
         baby.loadProgram()
         let running = setInterval(() => {
             
