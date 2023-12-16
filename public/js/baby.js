@@ -1,23 +1,72 @@
 // it is currently 8:04pm on a thursday night
 // i have an urge to emulate the manchester baby i saw today
 
+function parseAssembly(string)
+{
+    let instructions = string.split('\n');
+    let binary = []
+    for (let i=0; i < instructions.length; i++) {
+        let splitInstruction = instructions[i].split(" ");
+        let binInstruction = 0;
+        switch (splitInstruction[0])
+        {
+            case ("JMP"):
+            {
+                binInstruction = splitInstruction[1] + '0000' + '0000000000000000'
+                break;
+            }
+            case ("JRP"):
+            {
+                binInstruction = splitInstruction[1] + '1000' + '0000000000000000'
+                break;
+            }
+            case ("LDN"):
+            {
+                binInstruction = splitInstruction[1] + '0100' + '0000000000000000'
+                break;
+            }
+            case ("STO"):
+            {
+                binInstruction = splitInstruction[1] + '1100' + '0000000000000000'
+                break;
+            }
+            case ("SUB"):
+            {
+                binInstruction = splitInstruction[1] + '0010' + '0000000000000000'
+                break;
+            }
+            case ("CMP"):
+            {
+                binInstruction = splitInstruction[1] + '0110' + '0000000000000000'
+                break;
+            }
+            case ("STP"):
+            {
+                binInstruction = '000000000000000011100000000000000000'
+                break;
+            }
+            case ("DAT"):
+            {
+                binInstruction = splitInstruction[1];
+                break;
+            }
+        }
+        binary.push(parseInt(binInstruction, 2));
+    }
+    return binary;
+}
+
 class Baby
 {
     constructor()
     {
-        this.screen = document.getElementById("screen");
-
-        this.programCounter = 0;
-        // 32 bit int, stores results from arithmatic instructions
-        this.accumulator = 0;
-
-        // 1024 bytes of memory
-        this.memory = Array(32).fill(0);
+        this.running = true;
+        this.init();
     }
 
     // opcode 000 JMP s
     JMP(S) {
-        this.programCounter = S;
+        this.programCounter = this.memory[S];
     }
 
     // opcode 100 JRP S
@@ -53,16 +102,7 @@ class Baby
     // opcode 111 STP
     // stop operation
     STP() {
-
-    }
-
-    loadProgram() {
-        let code = document.getElementById("code").value;
-        let splitCode = code.split('\n');
-        for (let i=0; i < 32; i++)
-        {
-            this.memory[i] = parseInt(splitCode[i], 2)
-        }
+        this.running = false;
     }
 
     debugInfo() {
@@ -72,6 +112,9 @@ class Baby
         var pc = document.getElementById("pc");
         pc.innerText = "pc: " + this.programCounter;
 
+        var s = document.getElementById("s");
+        s.innerText = "S: " + (this.memory[this.programCounter] & 0xFFF00000) >> 20;
+
         var opcode = document.getElementById("opcode");
         var val = (this.memory[this.programCounter] & 0xE0000);
         opcode.innerText = "opcode: " + (val >> 17).toString();
@@ -79,24 +122,26 @@ class Baby
     }
 
     drawScreen() {
-        var context = this.screen.getContext('2d');
+        let context = this.screen.getContext('2d');
 
         for (let y = 0; y < 32; y++)
         {
-            
             for (let x = 1; x < 32; x++)
             {
                 let maskedBit = (this.memory[y] >> 32-x) & 1;
                 if (maskedBit)
                 {
-                    context.fillRect(x, y, 1, 1);
+                    context.fillRect(x*8, y*8, 8, 8);
                 }
-
-            }
-            
-        }
-        
+            }      
+        }  
     }
+
+    clearScreen() {
+        let context = this.screen.getContext('2d');
+        context.clearRect(0, 0, 256, 256)
+    }
+
     cycle() {
         // bits 0-12 represented the adress of the operand
         // bits 13-15 were the opcode
@@ -109,10 +154,12 @@ class Baby
             case (0b000):
             {
                 this.JMP(s);
+                break
             }
             case (0b100):
             {
                 this.JRP(s);
+                break
             }
             case (0b010):
             {
@@ -127,15 +174,40 @@ class Baby
             case (0b001 || 0b101):
             {
                 this.SUB(s);
+                break
             }
             case (0b011):
             {
                 this.CMP();
+                break
             }
             case (0b111):
             {
                 this.STP();
+                return;
             }
+        }
+        this.programCounter++;
+    }
+
+    init() {
+        // the screen to output to
+        this.screen = document.getElementById("screen");
+
+        // the next instruction in memory
+        this.programCounter = 0;
+
+        // stores results from arithmatic instructions
+        this.accumulator = 0;
+
+        // 1024 bytes of memory
+        this.memory = Array(32).fill(0);
+
+        let code = document.getElementById("code").value;
+        let instructions = parseAssembly(code);
+        for (let i=0; i < instructions.length; i++)
+        {
+            this.memory[i] = instructions[i];
         }
     }
 }
@@ -143,23 +215,35 @@ class Baby
 
 // wait for window to load before executing important stuf
 document.addEventListener('DOMContentLoaded', function () {
-    
+
+    // basic program to do 5 - 2
+    // LDN 4 (0x00440000)
+    // SUB 3 (0x00320000)
+    // STP   (0x000E0000)
+    // DAT 2 (0x00000002)
+    // DAT 5 (0x00000005)
 
 
-    let execute = document.getElementById('run');
+    var execute = document.getElementById('run');
+    var stopBtn = document.getElementById('stop');
+    var loop = 0;
+
+    var baby = new Baby();
+
+    stopBtn.onClick = function () {clearInterval(loop);}
     execute.onclick = function() {
-        const baby = new Baby();
+        baby = new Baby();
 
-        baby.loadProgram()
-        let running = setInterval(() => {
-            
+        loop = setInterval(() => {
+            baby.clearScreen();
             baby.cycle();
             baby.drawScreen();
             baby.debugInfo();
-    
-            let stop = document.getElementById('stop');
-            stop.onclick(function () {clearInterval(running)});
-        }, (10));
+
+            
+            if (!baby.running) { clearInterval(loop); }
+        }, (0.55));
+        
     }
 
     

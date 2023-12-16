@@ -2,16 +2,26 @@
     <head>
         <script src="/public/js/baby.js"></script>
     </head>
-    <body>
-        <canvas id="screen" width="32" height="32" style="border: 1px solid #000;"></canvas>
+    <body style="display: block;">
+        <canvas id="screen" width="256" height="256" style="border: 1px solid #000;"></canvas>
         <p id="accumulator"></p>
         <p id="pc"></p>
+        <p id="s"></p>
         <p id="opcode"></p>
-        <p id="error"></p>
 
-        <textarea id="code" cols="32" rows="10"></textarea>
         <button id="run">Run Program</button>
         <button id="stop">Stop</button>
+        <!-- Basic Program For 1 + 1 --> 
+        <textarea id="code" style="display: block;" cols="15" rows="10">
+LDN 0110
+SUB 0111
+STO 1010
+LDN 1010
+STO 1010
+STP
+DAT 0001
+DAT 0001
+        </textarea>
 
         <p>
             Each opcode is 32 bits long: <br> bits 0-12 represent the memory adress of the operand <br>
@@ -24,7 +34,7 @@
             110: STO S Store the number in the accumulator to the specified memory address S <br>
             001 or 101: SUB S 	Subtract the number at the specified memory address S from the value in accumulator, and store the result in the accumulator <br>
             011: CMP Skip next instruction if the accumulator contains a negative value <br>
-            111: Stop
+            111: STP Stop
 
 
         </p>
