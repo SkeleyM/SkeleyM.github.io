@@ -1,18 +1,33 @@
 <html>
     <head>
         <script src="/public/js/baby.js"></script>
+        <link rel="stylesheet" href="/public/css/baby.css">
     </head>
-    <body style="display: block;">
-        <canvas id="screen" width="256" height="256" style="border: 1px solid #000;"></canvas>
-        <p id="accumulator"></p>
-        <p id="pc"></p>
-        <p id="s"></p>
-        <p id="opcode"></p>
+    <body>
+        <div class="emulator">
+            <div>
+                <canvas id="screen" width="256" height="256" class="screen"></canvas>
+                
+            </div>
+            
+            <div style="padding: 10px;" >
+                <p id="accumulator" class="debugInfo">accumulator: 0</p>
+                <p id="pc" class="debugInfo">pc: 0</p>
+                <p id="s" class="debugInfo">s: 0</p>
+                <p id="opcode" class="debugInfo">opcode : None</p>
 
-        <button id="run">Run Program</button>
-        <button id="stop">Stop</button>
-        <!-- Basic Program For 1 + 1 --> 
-        <textarea id="code" style="display: block;" cols="15" rows="10">
+                <button id="run" class="codeButton">Run Program</button>
+                <button id="stop" class="codeButton">Stop</button>
+            </div>
+            
+        </div>
+        
+
+    
+        <div class="code">
+            
+            <!-- Basic Program For 1 + 1 --> 
+            <textarea id="code" class="codeArea" style="display: block;" cols="36" rows="10">
 LDN 0110
 SUB 0111
 STO 1010
@@ -21,22 +36,29 @@ STO 1010
 STP
 DAT 0001
 DAT 0001
-        </textarea>
+    </textarea>
+        </div>
 
-        <p>
-            Each opcode is 32 bits long: <br> bits 0-12 represent the memory adress of the operand <br>
-            bits 12-15 are the opcode <br>
-            the rest is unused
-<br><br>
-            000: JMP S Jump to the instruction at the address obtained from the specified memory address S[a] (absolute unconditional indirect jump) <br>
-            100: JRP S Jump to the instruction at the program counter plus (+) the relative value obtained from the specified memory address S[a] (relative unconditional jump) <br>
-            010: LDN S 	Take the number from the specified memory address S, negate it, and load it into the accumulator <br>
-            110: STO S Store the number in the accumulator to the specified memory address S <br>
-            001 or 101: SUB S 	Subtract the number at the specified memory address S from the value in accumulator, and store the result in the accumulator <br>
-            011: CMP Skip next instruction if the accumulator contains a negative value <br>
-            111: STP Stop
+        <div >
+            <p class="babyInfo">
+                Each opcode is 32 bits long: <br> bits 0-12 represent the memory adress of the operand <br>
+                bits 12-15 are the opcode <br>
+                the rest is unused
+            </p>
 
+            <p class="babyInfo">
+            <br><br>
+                000: JMP S Jump to the instruction at the address obtained from the specified memory address S[a] (absolute unconditional indirect jump) <br>
+                100: JRP S Jump to the instruction at the program counter plus (+) the relative value obtained from the specified memory address S[a] (relative unconditional jump) <br>
+                010: LDN S 	Take the number from the specified memory address S, negate it, and load it into the accumulator <br>
+                110: STO S Store the number in the accumulator to the specified memory address S <br>
+                001 or 101: SUB S 	Subtract the number at the specified memory address S from the value in accumulator, and store the result in the accumulator <br>
+                011: CMP Skip next instruction if the accumulator contains a negative value <br>
+                111: STP Stop
+    
+    
+            </p>
+        </div>
 
-        </p>
     </body>
 </html>
