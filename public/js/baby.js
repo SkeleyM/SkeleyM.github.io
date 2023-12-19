@@ -37,7 +37,7 @@ function parseAssembly(string)
             }
             case ("CMP"):
             {
-                binInstruction = splitInstruction[1] + '0110' + '0000000000000000'
+                binInstruction = '0000000000000000'+ '0110' + '0000000000000000'
                 break;
             }
             case ("STP"):
@@ -93,7 +93,7 @@ class Baby
 
     // opcode 011 (or 101?) CMP
     CMP() {
-        if (!(this.accumulator >> 31))
+        if (this.accumulator < 0)
         {
             this.programCounter += 1;
         }
