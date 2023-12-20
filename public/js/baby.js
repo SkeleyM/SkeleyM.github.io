@@ -7,7 +7,7 @@ function parseAssembly(string)
     let binary = []
     for (let i=0; i < instructions.length; i++) {
         let splitInstruction = instructions[i].split(" ");
-        let binInstruction;
+        let binInstruction = 0;
         switch (splitInstruction[0])
         {
             case ("JMP"):
@@ -79,7 +79,7 @@ class Baby
     LDN(S) {
         this.accumulator = -this.memory[S];
     }
-1
+
     // opcode 110 LDN S
     // store number in accumulator to memory adress S
     STO(S) {
@@ -126,12 +126,12 @@ class Baby
 
         for (let y = 0; y < 32; y++)
         {
-            for (let x = 1; x < 32; x++)
+            for (let x = 0; x < 32; x++)
             {
-                let maskedBit = (this.memory[y] >> 32-x) & 1;
-                if (maskedBit)
+                let maskedBit = (this.memory[y] >> x) & 1;
+                if (maskedBit >> 32)
                 {
-                    context.fillRect(x*8-4, y*8-4, 8, 8);
+                    context.fillRect(x*8, y*8, 8, 8);
                 }
             }      
         }  
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // STP   (0x000E0000)
     // DAT 2 (0x00000002)
     // DAT 5 (0x00000005)
-    
+
 
     var execute = document.getElementById('run');
     var stopBtn = document.getElementById('stop');
@@ -240,9 +240,17 @@ document.addEventListener('DOMContentLoaded', function () {
             baby.drawScreen();
             baby.debugInfo();
 
-            
+
             if (!baby.running) { clearInterval(loop); }
         }, (1.2));
-        
+
     }
+
+
+
+
+
+
+
+
 })
