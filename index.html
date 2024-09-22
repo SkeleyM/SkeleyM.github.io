@@ -1,48 +1,65 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skeley's Place</title>
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/public/css/text.css">
-    <link rel="stylesheet" href="/public/css/grid.css">
-    <script src="public/js/Dvd.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/index.css">
 </head>
-    <body id="bg"style="background-image: url(/public/images/bg.jpg); background-repeat: repeat; background-size: cover;">
-        <img id="dvd-logo" src="/public/images/dvd.png" style="width: 100px; filter:invert(); position:absolute;">
-        <h1 class="page-Header" style="font-family: Pixel;">skeley.</h1>
-        <p class="glowingText" style="text-align: center; position: relative;">Hello!</p>
-        <div class="container">
-            <div id="Textboxes">
-                <!-- About Me! -->
-                <div class="text-box">
-                    <h2 class="paragraph-Header"><img src="/public/images/Header.png " style="max-width: 28px; height: 28px;" class="paragraph-Header"> About Me</h2>
-                    <p> <img src="/public/images/skeley.png" style="border-radius: 100%; max-width: 50px; max-height: 50px;"> 
-                        Hi! im a 15yr old computer science student from the Uk. All of my computer science knowledge is self taught (so dont judge my bad practices) <br><br> i started learning around 2020 at the start of lockdown and ive made a lot of progress since then.
-                    </p>
-                </div>
-                <!--Skills-->
-                <div class="text-box">
-                    <h2 class="paragraph-Header">My skills</h2>
-                    <p>Languages: C++, c#, python</p>
-                    <p>I learned these languages in the order right to left.</p>
-                    <p><br>My problem solving skills are immaculate 🔥</p>
-                </div>
-                <!--Projects-->
-                <div class="text-box">
-                    <h2 class="paragraph-Header">Projects</h2>
-                    <p><a href="/pages/baby.html">SSEM</a> Emulator - 14/12/23</p>
-                    <p><a href="/pages/chip8.html">chip8</a> Emulator - 8/09/23</p>
+
+    <body style="background-image: linear-gradient(#0c0435, #152476); background-attachment: fixed;">
+        <h1>Skeley's place</h1>
+
+        <div class="textBox" style="width: 50%;">
+            <h2>Intro</h2>
+            <p>Hi, im a self-taught programmer 
+            <br> I began learning around 2020 during lockdown and have been enjoying it ever since
+            <br><br> I Know Python, C and C++</p>
+        </div>
+        <div class="textBox" style="width: 50%;">
+            <h2>Projects</h2>
+
+            <p><a href="pages/chip8.html">Chip8</a> Emulator - 14/12/23</p>
+            <p><a href="pages/baby.html">SSEM</a> Emulator - 8/09/23</p>
+        </div>
+
+
+        <div class="socialMedias" class="socialMedias">
+
+            <div class="staticsocialMediaSelector" style="z-index: 11;">
+                <div class="socialMediaSelector_TopFace"></div>
+                <div class="socialMediaSelector_LeftFace"></div>
+                <div class="socialMediaSelector_FrontFace">
+                    <p>My Socials!</p>
                 </div>
             </div>
-            <div id="Sidebar">
-                <div id="dvd-info" class="side-text-box" style="margin: 0%; padding: auto; font-family: pixel;">
-                    <h4 class="text">Dvd Info!</h4>
-                    <p id="dvd-bounces" style="margin: 0px;">Bounces: 0</p>
-                    <p id="dvd-bounces-corner">Corner Bounces: 0</p> 
+
+            <div class="socialMediaSelector" style="z-index: 10;">
+                <div class="socialMediaSelector_TopFace"></div>
+                <div class="socialMediaSelector_LeftFace"></div>
+                <div class="socialMediaSelector_FrontFace">
+                    <a href="https://github.com/SkeleyM"><p><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png"> Github</p></a>
                 </div>
-            </div>            
+            </div>
+            
+            <div class="socialMediaSelector" style="z-index: 9;">
+                <div class="socialMediaSelector_TopFace" ></div>
+                <div class="socialMediaSelector_LeftFace"></div>
+                <div class="socialMediaSelector_FrontFace">
+                    <p><img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6cc3c481a15a141738_icon_clyde_white_RGB.png"> .skeley</p>
+                </div>
+            </div>
+
+            <div class="socialMediaSelector" style="z-index: 8;">
+                <div class="socialMediaSelector_TopFace"></div>
+                <div class="socialMediaSelector_LeftFace"></div>
+                <div class="socialMediaSelector_FrontFace">
+                    <p><img src="https://www.freepnglogos.com/uploads/email-logo-png-27.png"> Email me!</p>
+                </div>
+            </div>
         </div>
+
+
     </body>
+
 </html>
