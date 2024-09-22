@@ -7,37 +7,37 @@ function parseAssembly(string)
     let binary = []
     for (let i=0; i < instructions.length; i++) {
         let splitInstruction = instructions[i].split(" ");
-        let binInstruction = 0;
+        let binInstruction;
         switch (splitInstruction[0])
         {
             case ("JMP"):
             {
-                binInstruction = splitInstruction[1] + '0000' + '0000000000000000'
+                binInstruction = splitInstruction[1] + "000000"  + '0000' + '0000000000000000'
                 break;
             }
             case ("JRP"):
             {
-                binInstruction = splitInstruction[1] + '1000' + '0000000000000000'
+                binInstruction = splitInstruction[1] + "000000" + '1000' + '00000000000000000'
                 break;
             }
             case ("LDN"):
             {
-                binInstruction = splitInstruction[1] + '0100' + '0000000000000000'
+                binInstruction = splitInstruction[1] + "000000"  + '0100' + '0000000000000000'
                 break;
             }
             case ("STO"):
             {
-                binInstruction = splitInstruction[1] + '1100' + '0000000000000000'
+                binInstruction = splitInstruction[1] + "000000"  + '1100' + '0000000000000000'
                 break;
             }
             case ("SUB"):
             {
-                binInstruction = splitInstruction[1] + '0010' + '0000000000000000'
+                binInstruction = splitInstruction[1] + "000000"  + '0010' + '0000000000000000'
                 break;
             }
             case ("CMP"):
             {
-                binInstruction = '0000000000000000'+ '0110' + '0000000000000000'
+                binInstruction = splitInstruction[1] + '0110' + '0000000000000000'
                 break;
             }
             case ("STP"):
@@ -45,7 +45,7 @@ function parseAssembly(string)
                 binInstruction = '000000000000000011100000000000000000'
                 break;
             }
-            case ("DAT"):
+            case ("NUM"):
             {
                 binInstruction = splitInstruction[1];
                 break;
@@ -128,8 +128,8 @@ class Baby
         {
             for (let x = 0; x < 32; x++)
             {
-                let maskedBit = (this.memory[y] >> x) & 1;
-                if (maskedBit >> 32)
+                let maskedBit = (this.memory[y] >> 32-x) & 1;
+                if (maskedBit)
                 {
                     context.fillRect(x*8, y*8, 8, 8);
                 }
@@ -146,7 +146,8 @@ class Baby
         // bits 0-12 represented the adress of the operand
         // bits 13-15 were the opcode
 
-        var s = (this.memory[this.programCounter] & 0xFFF00000) >> 20;
+        // 
+        var s = (this.memory[this.programCounter] & 0xFFF00000) >> 26;
         var opcode = (this.memory[this.programCounter] & 0xE0000) >> 17;
 
         switch (opcode)
@@ -201,7 +202,7 @@ class Baby
         this.accumulator = 0;
 
         // 1024 bytes of memory
-        this.memory = Array(32).fill(0);
+        this.memory = new Int32Array(32).fill(917,504);
 
         let code = document.getElementById("code").value;
         let instructions = parseAssembly(code);
@@ -243,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!baby.running) { clearInterval(loop); }
         }, (1.2));
-
+        
     }
 
 

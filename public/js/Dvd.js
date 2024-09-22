@@ -41,8 +41,6 @@ function updateLogoVelocity()
 {
     let cornerBounce = 0;
 
-    let logo = document.getElementById('dvd-logo');
-
     let sizeX = window.innerWidth - 100;
     let sizeY = window.innerHeight - 50;
 
@@ -51,10 +49,6 @@ function updateLogoVelocity()
         yVel = -yVel;
         cornerBounce++;
         bounces++;
-
-        // update bounce display
-        let counter = document.getElementById('dvd-bounces')
-        counter.textContent = "Bounces: " + bounces
 
         // snap it to the edge of the screen
         if (currentY >= sizeY + 10)
@@ -67,27 +61,12 @@ function updateLogoVelocity()
     if (currentX >= sizeX || currentX <= 0) {
         xVel = -xVel;
         cornerBounce++;
-        bounces++;
-
-        // update bounce display
-        let counter = document.getElementById('dvd-bounces')
-        counter.textContent = "Bounces: " + bounces        
+        bounces++;    
 
         // if the logo is outside the bounds of the screen move it to the edge
         if (currentX >= sizeX + 10)
         {
             currentX = sizeX
         }     
-    }
-    
-
-    if (cornerBounce == 2)
-    {
-        console.log("Corner Bounce!");
-        cornerBounces++;
-
-        // update corner bounces counter
-        let counter = document.getElementById('dvd-bounces-corner');
-        counter.textContent = "Corner Bounces: " + cornerBounces;
     }
 }

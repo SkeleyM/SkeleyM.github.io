@@ -20,6 +20,17 @@ p {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
+    .babyInfo {
+        width: 50%;
+        margin: auto;
+        padding: 10px;
+        padding-top: 30px;
+        text-align: center;
+        color: white;
+        border-radius: 10px;
+    }
+    
+
     .codeButton {
         padding-left:3px;
         padding-right: 3px;
@@ -55,6 +66,7 @@ p {
 }
 
 .debugInfo {
+    position: static;
     padding: 5px;
     background-color: rgb(255, 255, 255);
     border: 1px black solid;
@@ -77,12 +89,16 @@ p {
 }
 
 .codeButton {
-    padding-left:3px;
-    padding-right: 3px;
+    padding: 5;
+    padding-left:6px;
+    padding-right: 6px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: rgb(255, 255, 255);
-    border-radius: 5px;
-    background-color: rgba(196, 222, 249, 0.799);
+    border-radius: 10px;
+    background-color: rgba(196, 222, 249, 0.8);
+}
+
+.codeButton:hover {
+    background-color: rgba(170, 210, 255, 0.903)
 }
 
 .codeArea {

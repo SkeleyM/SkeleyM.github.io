@@ -1,0 +1,189 @@
+body {
+    overflow-x: hidden;
+}
+
+h1 {
+    color: white; 
+    text-shadow: gray 1px 1px 10px; 
+    text-align: center;
+    font-family: 'system-ui';
+
+    animation: headerGlow 5s ease-in-out infinite alternate;
+}
+
+h2 {
+    color: white;
+    font-family: 'system-ui';
+    padding: 5px;
+    margin: auto 
+}
+
+p {
+    color: white;
+    font-family: 'system-ui';
+
+
+    padding: 5px 5px;
+}
+
+a {
+    color: rgb(147, 214, 119);
+    font-family: 'system-ui';
+}
+
+.textBox {
+    margin: auto;
+    background-color: rgb(26, 26, 26);
+
+    width: 50vw;
+
+    border: 1px;
+    border-width: 5px;
+    border-radius: 2vh;
+    border-style: groove;
+    border-color: black;
+    
+    margin-top: 10px; /* gap between text boxes */
+
+    animation: slideAppear .8s ease-in-out;
+}
+
+.socialMedias 
+{
+    position: absolute; 
+    left: 10vh; 
+    top: 8vh;
+    margin-top: 0;
+    transform: scale(1.5, 1.5);
+}
+
+.socialMediaSelector
+{
+    position: relative;
+    transform: skewY(-10deg);
+    transition: .1s;
+    margin-top: -13.5%;
+}
+
+.staticsocialMediaSelector
+{
+    position: relative;
+    transform: skewY(-10deg);
+}
+
+.socialMediaSelector_FrontFace {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(21, 47, 119);
+    width: 120px;
+    height: 20px;
+}
+
+div.socialMediaSelector_FrontFace a
+{
+    text-decoration: none;
+}
+
+div.socialMediaSelector_FrontFace p
+{
+    color: rgb(201, 225, 239);
+    text-align: center;
+    font-family: 'system-ui';
+    font-size: unset;
+
+    padding: 0;
+}
+
+div.socialMediaSelector_FrontFace img
+{
+    width: 15px;
+}
+
+.socialMediaSelector:hover {
+    transform: skewY(-10deg) translate3d(14px, 7px, 14px);
+}
+
+.socialMediaSelector_TopFace {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(33, 58, 124);
+    width: 19px;
+    height: 43px;
+
+    top: -125%;
+    left: 33%;
+    transform: skewY(20deg) skewX(-70deg);
+    z-index: -1;
+}
+
+.socialMediaSelector_LeftFace {
+
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(26, 40, 73);
+    width: 20px;
+    height: 20px;
+
+    top: -16%;
+    left: -17%;
+    transform: skewY(20deg);
+    z-index: 0;
+}
+
+
+.socialMediasSmall {
+    position: absolute;
+    display: flex;
+    width: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    bottom: 0;
+    opacity: 0.8;
+}
+
+.socialMediasSmall a {
+    text-decoration: none;
+}
+
+.socialMediasSmall img {
+    width: 20px
+}
+
+@keyframes slideAppear {
+    from {
+        transform: translateY(5%);
+        opacity: 0;
+    }
+}
+
+@keyframes headerGlow {
+    from {
+        text-shadow: rgba(255, 255, 255, 0.266) 1px 1px 5px; 
+    }
+    to {
+        text-shadow: #ffffff59 1px 1px 10px;
+    }
+}
+
+@media (max-width: 900px) {
+    .socialMedias 
+    {
+        position: absolute; 
+        left: 10vh; 
+        top: 8vh;
+        margin-top: 0;
+        transform: scale(0, 0);
+    }
+
+    .textBox {
+        width: 90%;
+    }
+
+    .socialMediasSmall {
+        width: 75%;
+    }
+}
