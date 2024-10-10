@@ -22,6 +22,7 @@ function startSnake() {
     let snakeHead = head;
     let didSnakeEatApple = false
     var snakeDirection = "None";
+    var inputQueue = []
     var framesBeforeSnakeMove = 10;
     var frameCounter = 0;
     var gameOver = false
@@ -30,26 +31,22 @@ function startSnake() {
         {
             case("ArrowLeft"):
             {
-                if (snakeDirection == "Right") break;
-                snakeDirection = "Left";
+                inputQueue.push("Left");
                 break;
             }
             case("ArrowRight"):
             {
-                if (snakeDirection == "Left") break;
-                snakeDirection = "Right";
+                inputQueue.push("Right");
                 break;
             }
             case("ArrowUp"):
             {
-                if (snakeDirection == "Down") break;
-                snakeDirection = "Up";
+                inputQueue.push("Up");
                 break;
             }
             case("ArrowDown"):
             {
-                if (snakeDirection == "Up") break;
-                snakeDirection = "Down";
+                inputQueue.push("Down");
                 break;
             }
         }
@@ -59,12 +56,31 @@ function startSnake() {
         clearScreen();
         drawApples(apples);
         drawSnake(snakeHead);
-        if (snakeDirection != "None")
+        if (snakeDirection != "None" || inputQueue.length != 0)
         {
             frameCounter++;
             if (frameCounter == framesBeforeSnakeMove)
             {
                 frameCounter = 0;
+
+                if (inputQueue.length > 0)
+                {
+                    let nextSnakeDirection = inputQueue.pop();
+                    
+                    let shouldUseQueuedInput = true;
+                    if (nextSnakeDirection == "Up" && snakeDirection == "Down")
+                        shouldUseQueuedInput = false;
+                    else if (nextSnakeDirection == "Left" && snakeDirection == "Right")
+                        shouldUseQueuedInput = false;
+                    else if (nextSnakeDirection == "Right" && snakeDirection == "Left")
+                        shouldUseQueuedInput = false;
+                    else if (nextSnakeDirection == "Down" && snakeDirection == "Up")
+                        shouldUseQueuedInput = false;
+
+                    if (shouldUseQueuedInput)
+                        snakeDirection = nextSnakeDirection;
+                }
+
                 let newSnakeHead = null
                 // snake should move
                 if (!didSnakeEatApple)
