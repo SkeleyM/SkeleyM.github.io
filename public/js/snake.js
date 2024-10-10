@@ -125,10 +125,31 @@ function startSnake() {
                     // if head has collided with apple
                     if ((snakeHead.x == apples[apple].x) && (snakeHead.y == apples[apple].y))
                     {
+                        didSnakeEatApple = true;
                         // move apple
                         apples[apple].x = randInt(0, 19);
                         apples[apple].y = randInt(0, 19);
-                        didSnakeEatApple = true;
+                        currentNode = snakeHead;
+                        let areSnakeAndAppleColliding = true
+                        
+                        while (areSnakeAndAppleColliding)
+                        {
+                            let didCollide = false
+                            while (currentNode != null)
+                            {
+                                currentNode = currentNode.next
+                                if (currentNode.x == apples[apple].x && currentNode.y == apples[apple].y)
+                                {
+                                    didCollide = true;
+                                    apples[apple].x = randInt(0, 19);
+                                    apples[apple].y = randInt(0, 19);
+                                }
+                            }
+                            if (!didCollide)
+                            {
+                                areSnakeAndAppleColliding = false
+                            }
+                        }
                     }
                 }
 
