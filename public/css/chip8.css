@@ -1,0 +1,8 @@
+body {
+    background-image: linear-gradient(rgb(33, 33, 41), rgb(76, 82, 101))
+}
+
+p {
+    font-family: Roboto;
+    color: white;
+}
